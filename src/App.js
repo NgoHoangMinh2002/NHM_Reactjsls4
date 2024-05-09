@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import NHMProductList from './Components/NHMProductList';
+import NHMProductAdd from './Components/NHMProductAdd';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+    products : [
+      { title: 'Cu li Le Hoang Long', id: 1 , status:1},
+      { title: 'Gac Cong dinh thu Khac Duy', id: 2 , status:1},
+      { title: 'Chủ Nợ Ngo Hoang Minh', id: 2210900044 , status:0},
+    ]
+  }
+  
+  }
+  nhmHandleSubmit = (param)=>{
+    console.log("App",param);
+    //them vao mang du lieu product
+    let {products} = this.state;
+    products.push(param);
+    this.setState({
+      products:products
+      
+    })
+  }
+  render() {
+    return (
+      <div className='cointaner border mt-5'>
+        <h1>Ngo Hoang Minh - Render data - Event Form</h1>
+        <hr/>
+        <NHMProductList renderProducts={this.state.products}/>
+        <hr/>
+        <NHMProductAdd onSummit = {this.nhmHandleSubmit} />
+      </div>
+    )
+  }
 }
-
-export default App;
